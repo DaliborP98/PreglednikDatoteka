@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Prikazivanje_Direktorija
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+                string prati_upis="";
+                string y_n = "";
+                Console.WriteLine(@"Upisite naredbu dir ako zelite dobiti sve direktorije na particiji C\: {0}", prati_upis);
+                string direktoriji_za_pohranu = @"C:\Users\Dalibor\Desktop\svi Direktoriji.txt";
+                prati_upis = Console.ReadLine();
+            
+                if (!File.Exists(direktoriji_za_pohranu))
+                {
+                    FileStream fs = new FileStream(direktoriji_za_pohranu,FileMode.Create);
+                }
+            try
+            { 
+                if (prati_upis.ToUpper() == "DIR")
+                {
+                    string put = @"C:";
+                    var direktoriji = new DirectoryInfo(put).GetDirectories();
+                    foreach (DirectoryInfo dir in direktoriji)
+                    {
+                        Console.WriteLine(dir);
+                    }
+                    Console.WriteLine("Svi direktoriji ce se spremiti u datoteku {0}", direktoriji_za_pohranu);                    
+                    Console.Write("Da li se slazete sa time? (Y/N) : {0}",y_n);
+                    y_n = Console.ReadLine();
+                    using (StreamWriter sw = new StreamWriter(direktoriji_za_pohranu))
+                    {
+                        if (y_n.ToUpper() == "Y")
+                        {
+                            Console.WriteLine("Direktoriji su se spremili.");
+                            sw.WriteLine(@"------- SVI DIREKTORIJI ZA {0}\ DISK SU: -------", put);
+                            foreach (DirectoryInfo dir in direktoriji)
+                            {
+                                sw.WriteLine(dir);
+                            }
+                        }
+                        else if(y_n.ToUpper() == "N")
+                        {
+                            Console.WriteLine(@"Niste htjeli spremiti direktorije u datoteku, ako ih zelite spremiti sljedeci put pritisnite Y");
+                            sw.WriteLine(@"Niste htjeli spremiti direktorije u datoteku!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Upisali ste krivo slovo za potvrdu!");
+                        }
+                        
+
+                    }
+                }
+                else 
+                {
+                    throw new Exception("Upisali ste krivu naredbu, pokusajte ponovo!");
+                }
+
+        }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Exception: {0}", e.ToString());
+            }
+
+           
+
+        }
+    }
+}
