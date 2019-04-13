@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Program_put_naziv
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string put = @"C:\Users\Dalibor\Desktop\Svi Direktoriji.txt";
+            Console.Write("Pritisnite F da bi dobili naziv i punu stazu datoteke koje ste zadali: ");
+            string pritisnuto = Console.ReadLine();
+        
+            do
+            {
+                
+                if (pritisnuto.ToLower() == "f")
+                {
+
+                    var staza = Path.GetFullPath(put);
+                    Console.WriteLine("Puna staza do datoteke {0}", staza);
+
+                }
+                else
+                {
+                    break;
+                }
+
+                Console.Write("Sada upisite F ako zelite dobiti naziv datoteke: ");
+                pritisnuto = Console.ReadLine();
+
+                if (pritisnuto.ToLower() == "f")
+                {
+                    var naziv = Path.GetFileNameWithoutExtension(put);
+                    Console.WriteLine("Naziv datoteke je: {0}", naziv);
+                }
+                else
+                {
+                    break;
+                }
+
+                Console.Write("Sada upisite F ako zelite dobiti punu stazu datoteke: ");
+                pritisnuto = Console.ReadLine();
+
+            } while (pritisnuto.ToLower() == "f");
+
+                Console.WriteLine("Upisali ste krivo slovo! ");
+              
+
+
+
+        }            
+}
+}
